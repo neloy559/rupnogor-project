@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   description: "Discover elegance in every thread. Shop premium sarees, jewelry, fusion wear and more at RupNogor.",
   keywords: ["RupNogor", "Bangladesh fashion", "sarees", "jewelry", "fusion wear"],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/brand-logo.png",
+    shortcut: "/brand-logo.png",
+    apple: "/brand-logo.png",
   },
 };
 
