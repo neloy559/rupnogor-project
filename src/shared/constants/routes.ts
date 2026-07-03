@@ -1,0 +1,15 @@
+export const ROUTES = {
+  HOME: '/',
+  AUTH: '/auth',
+  PRODUCT: (id: string) => `/products/${id}`,
+  CART: '/cart',
+  CHECKOUT: '/checkout',
+  ORDER_SUCCESS: (id: string) => `/order-success?orderId=${id}`,
+  WISHLIST: '/wishlist',
+  ACCOUNT: '/account',
+  ADD_ADDRESS: '/account/addresses/new',
+  SEARCH: (q: string) => `/search?q=${encodeURIComponent(q)}`,
+  ADMIN_PRODUCTS: '/admin/products',
+  ADMIN_ORDERS: '/admin/orders',
+  ADMIN_BANNERS: '/admin/banners',
+} as const;

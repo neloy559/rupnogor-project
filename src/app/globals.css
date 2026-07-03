@@ -1,0 +1,247 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* RupNogor custom color tokens */
+  --color-rl-primary: var(--rl-primary);
+  --color-rl-on-primary: var(--rl-on-primary);
+  --color-rl-primary-container: var(--rl-primary-container);
+  --color-rl-on-primary-container: var(--rl-on-primary-container);
+  --color-rl-secondary: var(--rl-secondary);
+  --color-rl-on-secondary: var(--rl-on-secondary);
+  --color-rl-secondary-container: var(--rl-secondary-container);
+  --color-rl-on-secondary-container: var(--rl-on-secondary-container);
+  --color-rl-tertiary: var(--rl-tertiary);
+  --color-rl-on-tertiary: var(--rl-on-tertiary);
+  --color-rl-tertiary-container: var(--rl-tertiary-container);
+  --color-rl-on-tertiary-container: var(--rl-on-tertiary-container);
+  --color-rl-tertiary-fixed: var(--rl-tertiary-fixed);
+  --color-rl-on-tertiary-fixed-variant: var(--rl-on-tertiary-fixed-variant);
+  --color-rl-primary-fixed: var(--rl-primary-fixed);
+  --color-rl-error: var(--rl-error);
+  --color-rl-on-error: var(--rl-on-error);
+  --color-rl-error-container: var(--rl-error-container);
+  --color-rl-on-error-container: var(--rl-on-error-container);
+  --color-rl-surface: var(--rl-surface);
+  --color-rl-on-surface: var(--rl-on-surface);
+  --color-rl-on-surface-variant: var(--rl-on-surface-variant);
+  --color-rl-surface-container-lowest: var(--rl-surface-container-lowest);
+  --color-rl-surface-container-low: var(--rl-surface-container-low);
+  --color-rl-surface-container: var(--rl-surface-container);
+  --color-rl-surface-container-high: var(--rl-surface-container-high);
+  --color-rl-surface-container-highest: var(--rl-surface-container-highest);
+  --color-rl-outline: var(--rl-outline);
+  --color-rl-outline-variant: var(--rl-outline-variant);
+  --color-rl-inverse-surface: var(--rl-inverse-surface);
+  --color-rl-inverse-on-surface: var(--rl-inverse-on-surface);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* RupNogor Design Tokens - Light Theme (Pink/Rose based) */
+  --rl-primary: #C2185B;
+  --rl-on-primary: #FFFFFF;
+  --rl-primary-container: #FFD9E2;
+  --rl-on-primary-container: #3E001D;
+  --rl-secondary: #B4B0BC;
+  --rl-on-secondary: #3B3840;
+  --rl-secondary-container: #F0EDF4;
+  --rl-on-secondary-container: #57525E;
+  --rl-tertiary: #E8B9CC;
+  --rl-on-tertiary: #492532;
+  --rl-tertiary-container: #633B48;
+  --rl-tertiary-container: #FFD9E2;
+  --rl-on-tertiary-container: #492532;
+  --rl-tertiary-fixed: #FFD9E2;
+  --rl-on-tertiary-fixed-variant: #633B48;
+  --rl-primary-fixed: #FFD9E2;
+  --rl-error: #BA1A1A;
+  --rl-on-error: #FFFFFF;
+  --rl-error-container: #FFDAD6;
+  --rl-on-error-container: #410002;
+  --rl-surface: #FFFBFF;
+  --rl-on-surface: #1C1B1F;
+  --rl-on-surface-variant: #49454F;
+  --rl-surface-container-lowest: #FFFFFF;
+  --rl-surface-container-low: #F7F2F7;
+  --rl-surface-container: #F3EDF3;
+  --rl-surface-container-high: #ECE6EC;
+  --rl-surface-container-highest: #E6E0E6;
+  --rl-outline: #7A757F;
+  --rl-outline-variant: #CBC4CF;
+  --rl-inverse-surface: #313034;
+  --rl-inverse-on-surface: #F4EFF4;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+
+  /* RupNogor Dark Mode Tokens */
+  --rl-primary: #FFB1C8;
+  --rl-on-primary: #5E1133;
+  --rl-primary-container: #7D2B47;
+  --rl-on-primary-container: #FFD9E2;
+  --rl-secondary: #D4C0D0;
+  --rl-on-secondary: #F5EFF5;
+  --rl-secondary-container: #5C4456;
+  --rl-on-secondary-container: #F0EDF4;
+  --rl-tertiary: #EFB8C6;
+  --rl-on-tertiary: #4A2533;
+  --rl-tertiary-container: #633B48;
+  --rl-on-tertiary-container: #FFD9E2;
+  --rl-tertiary-fixed: #FFD9E2;
+  --rl-on-tertiary-fixed-variant: #A38A96;
+  --rl-primary-fixed: #FFD9E2;
+  --rl-error: #FFB4AB;
+  --rl-on-error: #690005;
+  --rl-error-container: #93000A;
+  --rl-on-error-container: #FFDAD6;
+  --rl-surface: #1C1B1F;
+  --rl-on-surface: #E6E0E6;
+  --rl-on-surface-variant: #CBC4CF;
+  --rl-surface-container-lowest: #111114;
+  --rl-surface-container-low: #1E1C20;
+  --rl-surface-container: #232127;
+  --rl-surface-container-high: #2D2B30;
+  --rl-surface-container-highest: #38353A;
+  --rl-outline: #948F99;
+  --rl-outline-variant: #49454F;
+  --rl-inverse-surface: #E6E0E6;
+  --rl-inverse-on-surface: #313034;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-rl-surface text-rl-on-surface;
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--rl-outline-variant);
+  border-radius: 999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--rl-outline);
+}
+
+/* Hide scrollbar for horizontal scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
