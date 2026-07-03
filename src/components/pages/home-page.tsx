@@ -177,7 +177,8 @@ export function HomePage() {
     <>
       {/* ─── Banner Carousel ─── */}
       <section
-        className="relative h-[400px] sm:h-[480px] lg:h-[560px] overflow-hidden select-none cursor-grab active:cursor-grabbing"
+        className="relative mx-3 sm:mx-4 lg:mx-6 mt-3 sm:mt-4 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl select-none cursor-grab active:cursor-grabbing"
+        style={{ height: 'clamp(300px, 52vw, 560px)' }}
         onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
         onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
         onMouseDown={(e) => handleDragStart(e.clientX)}
@@ -200,21 +201,38 @@ export function HomePage() {
               sizes="100vw"
             />
             <div className={`absolute inset-0 bg-gradient-to-t ${slide.gradient}`} />
-            <div className="relative z-10 h-full flex flex-col justify-end px-6 pb-10 max-w-7xl mx-auto">
-              <span className="inline-block bg-rl-primary/90 text-rl-on-primary text-xs font-semibold px-3 py-1 rounded-full w-fit mb-3">
+            <div className="relative z-10 h-full flex flex-col justify-end px-6 sm:px-8 pb-8 max-w-7xl mx-auto">
+              <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full w-fit mb-3 border border-white/30">
                 {slide.badge}
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 drop-shadow-lg">
                 {slide.title}
               </h2>
-              <p className="text-white/80 text-sm sm:text-base mb-6 max-w-md">
+              <p className="text-white/85 text-sm sm:text-base mb-5 max-w-md drop-shadow">
                 {slide.subtitle}
               </p>
-              <button
-                className="bg-rl-primary text-rl-on-primary px-6 py-3 rounded-full font-semibold shadow-lg w-fit hover:bg-rl-primary/90 active:scale-95 transition-all"
-              >
-                {slide.cta}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 items-start">
+                <button className="bg-white text-rl-primary px-6 py-2.5 rounded-full font-semibold shadow-lg w-fit hover:bg-white/90 active:scale-95 transition-all text-sm">
+                  {slide.cta}
+                </button>
+                {/* Inline search — desktop only */}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const input = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value.trim();
+                    if (input) router.push(ROUTES.SEARCH(input));
+                  }}
+                  className="hidden sm:flex items-center bg-white/20 backdrop-blur-md rounded-full px-4 py-2.5 border border-white/30 w-64 hover:bg-white/30 transition-colors"
+                >
+                  <Search className="w-4 h-4 text-white/80 mr-2 flex-shrink-0" />
+                  <input
+                    name="search"
+                    type="text"
+                    placeholder="Search sarees, jewelry..."
+                    className="flex-1 bg-transparent text-sm text-white placeholder:text-white/60 outline-none"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         ))}
@@ -250,31 +268,33 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Floating Search Bar */}
-      <div className="max-w-2xl mx-auto -mt-8 relative z-20 px-4">
+      {/* Mobile search bar — shown below banner on mobile only */}
+      <div className="sm:hidden px-4 mt-3">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const input = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value.trim();
             if (input) router.push(ROUTES.SEARCH(input));
           }}
-          className="w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-rl-outline-variant/30 flex items-center px-4 py-3"
+          className="flex items-center bg-rl-surface-container-high rounded-full px-4 py-3 border border-rl-outline-variant/40 shadow-sm"
         >
-          <Search className="w-5 h-5 text-rl-on-surface-variant mr-3 flex-shrink-0" />
+          <Search className="w-4 h-4 text-rl-on-surface-variant mr-3 flex-shrink-0" />
           <input
             name="search"
             type="text"
             placeholder="Search for sarees, jewelry..."
             className="flex-1 bg-transparent text-sm text-rl-on-surface placeholder:text-rl-on-surface-variant outline-none"
-            aria-label="Search products"
           />
         </form>
       </div>
 
       {/* Shop by Category */}
-      <section className="mt-8 px-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-rl-on-surface">Shop by Category</h3>
+      <section className="mt-6 sm:mt-8 px-4 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h3 className="text-lg font-bold text-rl-on-surface">Shop by Category</h3>
+            <div className="w-10 h-0.5 bg-rl-primary rounded-full mt-1" />
+          </div>
           <Link href={ROUTES.HOME} className="text-sm text-rl-primary font-medium flex items-center gap-1 hover:underline">
             View All <ChevronRight className="w-4 h-4" />
           </Link>
@@ -286,10 +306,10 @@ export function HomePage() {
               href={`/?category=${encodeURIComponent(cat.name)}`}
               className="flex flex-col items-center gap-2 flex-shrink-0 group"
             >
-              <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full ${cat.color} flex items-center justify-center group-hover:scale-105 transition-transform`}>
+              <div className={`w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full ${cat.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-md`}>
                 <cat.icon className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
-              <span className={`text-xs sm:text-sm font-medium ${activeCategory === cat.name ? 'text-rl-primary' : 'text-rl-on-surface'}`}>{cat.name}</span>
+              <span className={`text-xs sm:text-sm font-semibold ${activeCategory === cat.name ? 'text-rl-primary' : 'text-rl-on-surface'}`}>{cat.name}</span>
             </Link>
           ))}
         </div>
@@ -312,8 +332,11 @@ export function HomePage() {
 
       {/* Trending Now */}
       <section className="mt-10 px-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-rl-on-surface">Trending Now</h3>
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h3 className="text-lg font-bold text-rl-on-surface">Trending Now</h3>
+            <div className="w-10 h-0.5 bg-rl-primary rounded-full mt-1" />
+          </div>
           <Link href={ROUTES.HOME} className="text-sm text-rl-primary font-medium flex items-center gap-1 hover:underline">
             See All <ChevronRight className="w-4 h-4" />
           </Link>
@@ -323,38 +346,38 @@ export function HomePage() {
             <Link
               key={product.id}
               href={ROUTES.PRODUCT(product.id)}
-              className="flex-shrink-0 w-[170px] sm:w-[200px] group cursor-pointer"
+              className="flex-shrink-0 w-[160px] sm:w-[190px] group cursor-pointer"
             >
-              <div className="relative rounded-2xl overflow-hidden mb-2">
-                <div className="h-[220px] sm:h-[260px] w-full overflow-hidden">
+              <div className="relative rounded-2xl overflow-hidden mb-2 shadow-sm group-hover:shadow-md transition-shadow">
+                <div className="h-[210px] sm:h-[250px] w-full overflow-hidden bg-rl-surface-container-low">
                   <Image
                     src={product.images?.[0] || '/products/product-saree-rose.png'}
                     alt={product.name}
                     width={200}
                     height={260}
-                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 {product.badge && (
-                  <span className={`absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full ${
+                  <span className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full ${
                     product.badge === 'Best Seller'
                       ? 'bg-rl-primary text-rl-on-primary'
-                      : 'bg-rl-primary-container text-rl-on-primary-container'
+                      : 'bg-white text-rl-primary border border-rl-primary/30'
                   }`}>
                     {product.badge}
                   </span>
                 )}
                 <button
                   onClick={(e) => { e.preventDefault(); toggleLike(product.id); }}
-                  className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
+                  className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-colors shadow-sm"
                   aria-label="Add to wishlist"
                 >
-                  <Heart className={`w-4 h-4 ${likedProducts.has(product.id) ? 'fill-rl-primary text-rl-primary' : 'text-rl-on-surface-variant'}`} />
+                  <Heart className={`w-3.5 h-3.5 ${likedProducts.has(product.id) ? 'fill-rl-primary text-rl-primary' : 'text-rl-on-surface-variant'}`} />
                 </button>
               </div>
-              <p className="text-xs text-rl-on-surface-variant mb-0.5">{product.category}</p>
-              <p className="text-sm font-medium text-rl-on-surface line-clamp-1">{product.name}</p>
-              <p className="text-sm font-semibold text-rl-primary mt-1">{formatPrice(product.price)}</p>
+              <p className="text-[10px] text-rl-on-surface-variant mb-0.5 uppercase tracking-wide">{product.category}</p>
+              <p className="text-sm font-semibold text-rl-on-surface line-clamp-1">{product.name}</p>
+              <p className="text-sm font-bold text-rl-primary mt-0.5">{formatPrice(product.price)}</p>
             </Link>
           ))}
         </div>
@@ -362,8 +385,11 @@ export function HomePage() {
 
       {/* New Arrivals */}
       <section className="mt-10 px-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-rl-on-surface">New Arrivals</h3>
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h3 className="text-lg font-bold text-rl-on-surface">New Arrivals</h3>
+            <div className="w-10 h-0.5 bg-rl-primary rounded-full mt-1" />
+          </div>
           <Link href={ROUTES.HOME} className="text-sm text-rl-primary font-medium flex items-center gap-1 hover:underline">
             See All <ChevronRight className="w-4 h-4" />
           </Link>
@@ -375,38 +401,39 @@ export function HomePage() {
               href={ROUTES.PRODUCT(product.id)}
               className="text-left group cursor-pointer"
             >
-              <div className="relative rounded-2xl overflow-hidden mb-2">
-                <div className="h-[180px] sm:h-[240px] w-full overflow-hidden">
+              <div className="relative rounded-2xl overflow-hidden mb-2 shadow-sm group-hover:shadow-md transition-shadow">
+                <div className="h-[180px] sm:h-[240px] w-full overflow-hidden bg-rl-surface-container-low">
                   <Image
                     src={product.images?.[0] || '/products/product-chiffon-saree.png'}
                     alt={product.name}
                     width={400}
                     height={240}
-                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <button
                   onClick={(e) => { e.preventDefault(); toggleLike(product.id); }}
-                  className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
+                  className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-colors shadow-sm"
                   aria-label="Add to wishlist"
                 >
-                  <Heart className={`w-4 h-4 ${likedProducts.has(product.id) ? 'fill-rl-primary text-rl-primary' : 'text-rl-on-surface-variant'}`} />
+                  <Heart className={`w-3.5 h-3.5 ${likedProducts.has(product.id) ? 'fill-rl-primary text-rl-primary' : 'text-rl-on-surface-variant'}`} />
                 </button>
               </div>
-              <p className="text-xs text-rl-on-surface-variant mb-0.5">{product.category}</p>
-              <p className="text-sm font-medium text-rl-on-surface line-clamp-1">{product.name}</p>
-              <p className="text-sm font-semibold text-rl-primary mt-1">{formatPrice(product.price)}</p>
+              <p className="text-[10px] text-rl-on-surface-variant mb-0.5 uppercase tracking-wide">{product.category}</p>
+              <p className="text-sm font-semibold text-rl-on-surface line-clamp-1">{product.name}</p>
+              <p className="text-sm font-bold text-rl-primary mt-0.5">{formatPrice(product.price)}</p>
             </Link>
           ))}
         </div>
       </section>
 
       {/* ─── Lookbook / Lifestyle Picks ─── */}
-      <section className="mt-12 px-4 max-w-7xl mx-auto">
+      <section className="mt-12 px-4 max-w-7xl mx-auto mb-6">
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h3 className="text-lg font-semibold text-rl-on-surface">Our Lookbook</h3>
+            <h3 className="text-lg font-bold text-rl-on-surface">Our Lookbook</h3>
             <p className="text-xs text-rl-on-surface-variant mt-0.5">Styled by RupNogor — see how our pieces come to life</p>
+            <div className="w-10 h-0.5 bg-rl-primary rounded-full mt-1" />
           </div>
           <Link href={ROUTES.HOME} className="text-sm text-rl-primary font-medium flex items-center gap-1 hover:underline">
             View All <ChevronRight className="w-4 h-4" />
